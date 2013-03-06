@@ -14,6 +14,11 @@ public:
 	//解析字符串2 参数1:待解析的字符串 参数2:存放解析后的字符串 参数3:解析规则 参数4:表示在每个结果
 	//后面添加回车
 	bool ParseString(CString&,CString&,CString,int);
+	//解析字符串，返回第一个符合要求的字符串
+	//参数1:待解析的字符串，参数2:存放解析后的字符串，参数3:解析规则
+	bool FindFirstString(CString&,CString&,CString);
+	//参数1:待解析的字符串，参数2:解析规则 返回符合结果的vector容器
+	std::vector<CString> ParseString(CString&,CString);
 	//格式化字符串，用于删除多余的回车，空格等
 	//参数1:待解析的字符串    将格式化后的字符串写入到参数1中
 	bool FormatString(CString&);

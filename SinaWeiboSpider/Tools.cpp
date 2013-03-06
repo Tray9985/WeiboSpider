@@ -154,6 +154,75 @@ bool Tools::ParseString(CString &Origin,CString &Result,CString Rule,int)
 	return true;
 }
 
+
+bool Tools::FindFirstString(CString &Origin,CString &Exchange,CString Rule)
+{
+	/*
+	*Bulid 2013-3-5 15:03
+	*此函数用于解析字符串，返回第一个符合要求的字符串
+	*在参数1中查找字符串，并写入到参数2中，查找规则由参数3指定
+	*/
+	if(Origin.IsEmpty() || Rule.IsEmpty())
+	{
+		AfxMessageBox(_T("FindFirstString Function\n错误：不能传递空参数"),MB_ICONWARNING);
+		return false;
+	}
+	//初始化交换区
+	Exchange = "";
+	std::string origin(Origin);
+	boost::regex reg(Rule);
+	boost::smatch what;
+	std::string::const_iterator beg,end;
+	beg = origin.begin();
+	end = origin.end();
+	//不一定会找到，所以先判断是否找到，如果找不到，返回false
+	if(!boost::regex_search(beg,end,what,reg))
+	{
+		Exchange = "";
+		return false;
+	}
+	//规则匹配成立，返回第一个结果
+	boost::regex_search(beg,end,what,reg);
+	std::string msg(what[0]);
+	Exchange = msg.c_str();
+	return true;
+}
+
+std::vector<CString> Tools::ParseString(CString &Source,CString Rule)
+{
+	/*
+	*Bulid 2013-3-6 17:52
+	*此函数用于解析字符串，将符合的结果压入vector中
+	*在参数1中查找字符串，查找规则由参数2指定
+	*/
+	std::vector<CString> Res;
+	if(Source.IsEmpty() || Rule.IsEmpty())
+	{
+		AfxMessageBox(_T("ParseString Function\n错误：不能传递空参数"),MB_ICONWARNING);
+		return Res;
+	}
+	std::string origin(Source);
+	boost::regex reg(Rule);
+	boost::smatch what;
+	std::string::const_iterator beg,end;
+	beg = origin.begin();
+	end = origin.end();
+	//不一定会找到，所以先判断是否找到，如果找不到，返回false
+	if(!boost::regex_search(beg,end,what,reg))
+	{
+		return Res;
+	}
+	//规则匹配成立，循环打印出规则
+	while(boost::regex_search(beg,end,what,reg))
+	{
+		std::string msg(what[0]);
+		//将结果压入vector中
+		Res.push_back(msg.c_str());
+		beg = what[0].second;
+	}
+	return Res;
+}
+
 bool Tools::SearchString(CString &Origin,CString Rule)
 {
 	/*

@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStruct.h" />
+    <ClInclude Include="HTMLParser.h" />
     <ClInclude Include="NetWork.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SinaWeiboSpider.h" />
@@ -116,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataStruct.cpp" />
+    <ClCompile Include="HTMLParser.cpp" />
     <ClCompile Include="NetWork.cpp" />
     <ClCompile Include="SinaWeiboSpider.cpp" />
     <ClCompile Include="SinaWeiboSpiderDlg.cpp" />

@@ -1813,16 +1813,16 @@ bool NetWork::TraversalWeibo(CString URL)
 					DebugInfo.Format(_T("错误！！搜索不到用户标识！！"));
 					DebugOut.Write(DebugInfo,DebugInfo.GetLength());
 				}
+#if 0
 				//删除微博正文前的标识
-				if(!vec_iter->Replace("</span><span class=.+?>",NULL))
+				if(!vec_iter->Replace("<span class=\"cmt\">",NULL))
 				{
-					UpdateInfo.Format(_T("错误！！搜索不到</span><span class=\"ctt\">！！"));
+					UpdateInfo.Format(_T("错误！！搜索不到<span class=\"ctt\">！！"));
 					SendMessage(hwnd,WM_UPDATEMISSIONINFO,(WPARAM)(LPCTSTR)UpdateInfo,0);
-					DebugInfo.Format(_T("\n错误！！搜索不到</span><span class=\"ctt\">！！\n"));
-					DebugOut.Write(DebugInfo,DebugInfo.GetLength());
+					DebugOut.Write(UpdateInfo,UpdateInfo.GetLength());
 					//return false;
 				}
-
+#endif
 				if(!tools.ParseString(*vec_iter,Temp,"<span class=\"cmt\">.+?<span class=\"cmt\">"))
 				{
 					UpdateInfo.Format(_T("错误！！提取不到微博正文，请重试！！"));
@@ -1838,6 +1838,7 @@ bool NetWork::TraversalWeibo(CString URL)
 					DebugOut.Write(DebugInfo,DebugInfo.GetLength());
 					return false;
 				}
+				WeiboInfo.Text.Replace(";",NULL);
 				//将整理后的微博填入到WeiboInfo的TEXT字段
 				WeiboInfo.Text = Temp;
 
