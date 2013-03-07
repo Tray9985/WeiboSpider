@@ -10,7 +10,7 @@
 #include <vector>
 #include "Tools.h"
 #include <fstream>
-
+#include "HTMLParser.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -339,6 +339,7 @@ void CSinaWeiboSpiderDlg::OnBnClickedLogin()
 
 void CSinaWeiboSpiderDlg::OnStnClickedPath()
 {
+#if 0
 	// TODO: 在此添加控件通知处理程序代码}
 	CFileDialog SaveFileDlg(false,".txt","爬虫结果",6UL,"文本格式|*.txt||");
 	if(SaveFileDlg.DoModal()==IDOK)
@@ -350,6 +351,17 @@ void CSinaWeiboSpiderDlg::OnStnClickedPath()
 	Out.Format(_T("设置存放的目录为:%s"),SaveFilePath);
 	GetDlgItem(IDC_PATH)->SetWindowTextA(Out);
 	nt.SetSaveFilePath(SaveFilePath);
+#endif
+	CFile fp;
+	fp.Open(_T("D:\\xmll.txt"),CFile::modeReadWrite);
+	char *pStr = new char[fp.GetLength()+1];
+	fp.Read(pStr,fp.GetLength());
+	CString szStr(pStr);
+	delete []pStr;
+	CHTMLParser ps;
+	ps.ReadHTML(szStr);
+	ps.ParserHTML();
+	Sleep(100);
 }
 
 //登录线程

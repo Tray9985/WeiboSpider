@@ -1946,8 +1946,6 @@ bool NetWork::TraversalWeibo(CString URL)
 			//WeiboIDÎªÎ¢²©Êý£¬µ¹Ðò´æ·Å
 			--WeiboID;
 			++vec_iter;
-
-
 		}
 		std::map<unsigned int,DataStruct,std::greater<unsigned int> >::iterator  map_iter;
 		map_iter = m_WeiboList.begin();
